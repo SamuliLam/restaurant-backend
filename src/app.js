@@ -1,9 +1,10 @@
 import express from 'express';
-const hostname = '127.0.0.1';
-const app = express();
-const port = 3000;
+import apiRouter from './api/index.js';
 
-app.use('/public', express.static('public'));
+
+const app = express();
+
+app.use('/api/v1', apiRouter);
 
 app.get('/', (req, res) => {
   res.send('Welcome to my REST API!');
@@ -12,3 +13,5 @@ app.get('/', (req, res) => {
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+export default app;
