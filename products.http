@@ -6,6 +6,7 @@ GET http://127.0.0.1:3000//api/v1/products/5
 ### POST product
 POST http://127.0.0.1:3000//api/v1/products/
 Content-Type: application/json
+Authorization: Bearer <>
 
 {
   "name": "Kebabruoka",
@@ -13,3 +14,7 @@ Content-Type: application/json
   "price": 100,
   "category": "category 1"
 }
+
+### PUT product by id 5
+PUT http://127.0.0.1:3000//api/v1/products/:id
+

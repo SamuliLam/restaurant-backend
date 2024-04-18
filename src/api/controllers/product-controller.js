@@ -16,7 +16,7 @@ const getProductById = async (req, res) => {
 }
 
 const postProduct = async (req, res) => {
-  const result = await createProductModel(req.body);
+  const result = await createProductModel(req.body, res.local.user);
   if (result.product_id){
     res.status(201);
     res.json({message: 'New product added.', result});
@@ -27,15 +27,21 @@ const postProduct = async (req, res) => {
 }
 
 const putProduct = async (req, res) => {
-  //TODO: needs to be implemented
-  res.status(501);
-  res.json({error: "Not Implemented"})
+  const result = await updateProductModel(req.body, req.params.id, res.locals.user);
+  if (!result){
+    res.status(400);
+    res.json({error: "Bad Request"});
+  }
+  res.json(result);
 }
 
 const deleteProduct = async (req, res) => {
-  //TODO: needs to be implemented
-  res.status(501);
-  res.json({error: "Not Implemented"})
+  const result = await deleteProductModel(req.params.id, res.locals.user);
+  if (!result){
+    res.status(400);
+    res.json({error: "Bad Request"});
+  }
+  res.json(result);
 }
 
 export {getAllProducts, getProductById, postProduct, putProduct, deleteProduct};

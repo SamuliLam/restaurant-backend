@@ -12,8 +12,11 @@ const getProductById = async (id) => {
   return rows[0];
 }
 
-const createProduct = async (product) => {
-  //TODO: needs to be implemented
+const createProduct = async (product, user) => {
+  if (user.role !== 'admin'){
+    throw new Error('Unauthorized');
+  }
+
   const {name, description, price, category} = product;
   const sql = "INSERT INTO products (name, description, price, category) VALUES (?, ?, ?, ?)";
   const params = [name, description, price, category];
