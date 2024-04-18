@@ -3,8 +3,8 @@ import express from "express";
 import {
   getAllProducts,
   getProductById,
-  createProduct,
-  updateProduct,
+  postProduct,
+  putProduct,
   deleteProduct
 } from "../controllers/product-controller.js";
 
@@ -12,12 +12,12 @@ const productRouter = express.Router();
 // TODO: Add middlewares
 productRouter.route('/')
   .get(getAllProducts)
-  .post(createProduct);
+  .post(postProduct);
 
 // TODO: Add middlewares
 productRouter.route('/:id')
   .get(getProductById)
-  .put(updateProduct)
+  .put(putProduct)
   .delete(deleteProduct);
 
 export default productRouter;

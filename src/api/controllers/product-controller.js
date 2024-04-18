@@ -15,13 +15,18 @@ const getProductById = async (req, res) => {
   res.json(await getProductByIdModel(id));
 }
 
-const createProduct = async (req, res) => {
-  //TODO: needs to be implemented
-  res.status(501);
-  res.json({error: "Not Implemented"})
+const postProduct = async (req, res) => {
+  const result = await createProductModel(req.body);
+  if (result.product_id){
+    res.status(201);
+    res.json({message: 'New product added.', result});
+  } else {
+    res.status(400);
+    res.json({error: "Bad Request"});
+  }
 }
 
-const updateProduct = async (req, res) => {
+const putProduct = async (req, res) => {
   //TODO: needs to be implemented
   res.status(501);
   res.json({error: "Not Implemented"})
@@ -33,4 +38,4 @@ const deleteProduct = async (req, res) => {
   res.json({error: "Not Implemented"})
 }
 
-export {getAllProducts, getProductById, createProduct, updateProduct, deleteProduct};
+export {getAllProducts, getProductById, postProduct, putProduct, deleteProduct};
