@@ -24,6 +24,7 @@ const getUserById = async (req, res) => {
   return res.status(200).json(user);
 }
 
+
 const postUser = async (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const result = await addUser(req.body);

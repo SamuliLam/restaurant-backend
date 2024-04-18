@@ -16,21 +16,21 @@ const getProductById = async (req, res) => {
 }
 
 const postProduct = async (req, res) => {
-  const result = await createProductModel(req.body, res.local.user);
+  const result = await createProductModel(req.body, res.locals.user);
   if (result.product_id){
     res.status(201);
     res.json({message: 'New product added.', result});
   } else {
-    res.status(400);
-    res.json({error: "Bad Request"});
+    res.status(401);
+    res.json({error: "Unauthorized"});
   }
 }
 
 const putProduct = async (req, res) => {
   const result = await updateProductModel(req.body, req.params.id, res.locals.user);
   if (!result){
-    res.status(400);
-    res.json({error: "Bad Request"});
+    res.status(401);
+    res.json({error: "Unauthorized"});
   }
   res.json(result);
 }

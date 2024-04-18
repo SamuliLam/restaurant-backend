@@ -14,7 +14,7 @@ const getProductById = async (id) => {
 
 const createProduct = async (product, user) => {
   if (user.role !== 'admin'){
-    throw new Error('Unauthorized');
+    return false;
   }
 
   const {name, description, price, category} = product;

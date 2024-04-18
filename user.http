@@ -2,10 +2,18 @@
 GET http://127.0.0.1:3000//api/v1/users
 
 ### GET, get a user by id
-http://127.0.0.1:3000//api/v1/users/2
+GET http://127.0.0.1:3000//api/v1/users/2
 
 ### POST, create a new user
 POST http://127.0.0.1:3000//api/v1/users
 content-type: application/json
 
-#### Request Body here
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "perkele@gmail.com",
+  "phone": "1234567890",
+  "address": "1234 Main St",
+  "password": "123456",
+  "role": "user"
+}

@@ -7,17 +7,18 @@ import {
   putProduct,
   deleteProduct
 } from "../controllers/product-controller.js";
+import {authenticateToken} from "../../middlewares.js";
 
 const productRouter = express.Router();
 // TODO: Add middlewares
 productRouter.route('/')
   .get(getAllProducts)
-  .post(postProduct);
+  .post(authenticateToken, postProduct, );
 
 // TODO: Add middlewares
 productRouter.route('/:id')
   .get(getProductById)
-  .put(putProduct)
-  .delete(deleteProduct);
+  .put(authenticateToken, putProduct)
+  .delete(authenticateToken, deleteProduct);
 
 export default productRouter;

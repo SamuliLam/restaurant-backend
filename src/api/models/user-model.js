@@ -7,7 +7,6 @@ const listAllUsers = async () => {
 
 const findUserById = async (id) => {
   const [rows] = await promisePool.query("SELECT * FROM users WHERE id = ?", [id]);
-  return rows;
   if (rows.length === 0) {
     return false;
   }
@@ -20,6 +19,7 @@ const getUserByEmail = async (email) => {
   if (rows.length === 0) {
     return false;
   }
+  console.log(rows)
   return rows[0];
 }
 
