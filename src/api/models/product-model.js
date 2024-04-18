@@ -1,11 +1,13 @@
 import promisePool from "../../utils/database.js";
 
 const getAllProducts = async () => {
-  //TODO: needs to be implemented
+  const [rows] = await promisePool.query("SELECT * FROM Products");
+  console.log(rows);
 }
 
 const getProductById = async (id) => {
-  //TODO: needs to be implemented
+  const [rows] = await promisePool.query("SELECT * FROM Products WHERE ProductID = ?", [id]);
+  console.log(rows);
 }
 
 const createProduct = async (product) => {
