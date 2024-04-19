@@ -1,0 +1,27 @@
+### GET, receive all orders
+GET http://127.0.0.1:3000/api/v1/orders/
+content-type: application/json
+
+### GET, receive a single order
+GET http://127.0.0.1:3000/api/v1/orders/1
+content-type: application/json
+
+### GET, receive all orders for a specific customer
+GET http://127.0.0.1:3000/api/v1/orders/customer/1
+content-type: application/json
+
+### Post, create a new order
+POST http://127.0.0.1:3000/api/v1/orders/
+content-type: application/json
+
+{
+  "order": {
+    "customer_id": 2,
+    "delivery_address": "Samulin katu 1",
+    "status": "processing",
+    "total_price": 9.99
+  },
+  "products": [
+    {"product_id": 1}
+  ]
+}
