@@ -14,7 +14,7 @@ const getUsers = async (req, res) => {
     return res.status(404).json({message: "No users found"});
   }
   return res.status(200).json(users);
-}
+};
 
 const getUserById = async (req, res) => {
   const user = await findUserById(req.params.id);
@@ -22,7 +22,7 @@ const getUserById = async (req, res) => {
     return res.status(404).json({message: "User not found"});
   }
   return res.status(200).json(user);
-}
+};
 
 
 const postUser = async (req, res) => {
@@ -32,7 +32,7 @@ const postUser = async (req, res) => {
     return res.status(400).json({message: "Failed to create user"});
   }
   res.status(201).json(result);
-}
+};
 
 const putUser = async (req, res) => {
   if (
