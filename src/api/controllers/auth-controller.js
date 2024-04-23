@@ -6,11 +6,11 @@ import "dotenv/config";
 const postLogin = async (req, res) => {
   const user = await getUserByEmail(req.body.email);
   if (!user) {
-    return res.status(401).json({ message: 'Login failed: User not found' });
+    return res.status(401).json({ message: 'Incorrect email or password' });
   }
 
   if (!bcrypt.compareSync(req.body.password, user.password)) {
-    return res.status(401).json({ message: 'Login failed: Incorrect password' });
+    return res.status(401).json({ message: 'Incorrect email or password' });
   }
   delete user.password;
 
