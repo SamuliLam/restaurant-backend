@@ -1,6 +1,7 @@
 import {
   listAllUsers,
   findUserById,
+  getUserByEmail,
   addUser,
   updateUser,
   removeUser
@@ -26,6 +27,10 @@ const getUserById = async (req, res) => {
 
 
 const postUser = async (req, res) => {
+  const emailInUse = await getUserByEmail(req.body.email);
+  if (emailInUse) {
+    return res.status(400).json({message: "Email already in use"});
+  }
   req.body.password = bcrypt.hashSync(req.body.password, 10);
   const result = await addUser(req.body);
   if (!result) {
