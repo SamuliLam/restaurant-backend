@@ -31,7 +31,7 @@ const addUser = async (user) => {
   if (rows[0].affectedRows === 0) {
     return false;
   }
-  return {user_id: rows[0].insertId};
+  return {user: user, id: rows[0].insertId}
 }
 
 const updateUser = async (id, user) => {

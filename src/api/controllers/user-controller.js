@@ -36,7 +36,7 @@ const postUser = async (req, res) => {
   if (!result) {
     return res.status(400).json({message: "Failed to create user"});
   }
-  res.status(201).json(result);
+  res.status(201).json({message: "Signup succesfull", "user": result});
 };
 
 const putUser = async (req, res) => {
