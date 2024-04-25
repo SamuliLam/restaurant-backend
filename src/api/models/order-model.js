@@ -1,7 +1,7 @@
 import promisePool from "../../utils/database.js";
 
 const listAllOrders = async () => {
-  const [rows] = await promisePool.query("SELECT * FROM orders");
+  const [rows] = await promisePool.query("SELECT * FROM orders JOIN customers ON orders.customer_id = customers.customer_id");
   return rows;
 }
 
