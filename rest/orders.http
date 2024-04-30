@@ -10,6 +10,10 @@ content-type: application/json
 GET http://127.0.0.1:3000/api/v1/orders/customer/1
 content-type: application/json
 
+### GET, receive all order items for a specific order
+GET http://127.0.0.1:3000/api/v1/orders/2/items
+content-type: application/json
+
 ### Post, create a new order
 POST http://127.0.0.1:3000/api/v1/orders/
 content-type: application/json

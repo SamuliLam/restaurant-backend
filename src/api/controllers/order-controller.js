@@ -2,6 +2,7 @@ import {
   listAllOrders,
   findOrderById,
   findOrdersByCustomerId,
+  findOrderedItemsByOrderId,
   addOrder,
   updateOrder,
   removeOrder,
@@ -58,4 +59,15 @@ const deleteOrder = async (req, res) => {
   res.json(result);
 };
 
-export { getOrders, getOrderById, getOrdersByCustomerId, postOrder, putOrder, deleteOrder };
+const getOrderedItemsByOrderId = async (req, res) => {
+  const orderedItems = await findOrderedItemsByOrderId(req.params.id);
+  if (!orderedItems) {
+    return res.status(404).json({ message: "No ordered items found" });
+  }
+  return res.status(200).json(orderedItems);
+
+}
+
+
+
+export { getOrders, getOrderById, getOrdersByCustomerId, getOrderedItemsByOrderId, postOrder, putOrder, deleteOrder };
