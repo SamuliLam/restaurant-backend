@@ -1,7 +1,12 @@
 import promisePool from "../../utils/database.js";
 
 const getAllProducts = async () => {
-  const [rows] = await promisePool.query("SELECT * FROM products");
+  const [rows] = await promisePool.query(`
+    SELECT products.*, allergens.name as allergen_name
+    FROM products
+    LEFT JOIN product_allergens ON products.id = product_allergens.product_id
+    LEFT JOIN allergens ON product_allergens.allergen_id = allergens.id
+  `);
   console.log(rows);
   return rows;
 }
