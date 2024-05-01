@@ -61,9 +61,25 @@ const addOrder = async (order, products) => {
 }
 
 const updateOrder = async (id, order) => {
-  const sql = promisePool.format("UPDATE orders SET ? WHERE order_id = ?", [order, id]);
+  const queryParams = [];
+
+  let setClause = '';
+
+  for (const [key, value] of Object.entries(order)) {
+    setClause += `${key} = ?, `;
+    queryParams.push(value);
+  }
+
+  setClause = setClause.slice(0, -2);
+
+  queryParams.push(id);
+
+  const sql = `UPDATE orders SET ${setClause} WHERE order_id = ?`;
+
   try {
-    const rows = await promisePool.execute(sql);
+    console.log('SQL:', sql);
+    console.log('Query Params:', queryParams);
+    const rows = await promisePool.execute(sql, queryParams);
     return !(rows[0].affectedRows === 0);
   } catch (e) {
     console.error("error", e.message);
