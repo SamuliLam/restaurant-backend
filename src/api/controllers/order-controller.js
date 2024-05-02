@@ -42,12 +42,14 @@ const postOrder = async (req, res) => {
 }
 
 const putOrder = async (req, res) => {
-  const result = await updateOrder(req.body, req.params.id);
-  if (!result) {
-    res.sendStatus(400);
-    return;
+  const id = req.params.id;
+  const order = req.body;
+  const result = await updateOrder(id, order);
+  if (result) {
+    res.json({message: 'Order updated', order});
+  } else {
+    res.status(400).json({message: 'Update failed'});
   }
-  res.json(result);
 };
 
 const deleteOrder = async (req, res) => {
