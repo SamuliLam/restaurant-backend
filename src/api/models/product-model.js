@@ -53,7 +53,7 @@ const createProduct = async (product, user) => {
 
 const updateProduct = async (product, id, user) => {
 
-  if (user.role === 'admin'){
+  if (user.role !== 'admin'){
     return false;
   }
 
@@ -71,7 +71,7 @@ const updateProduct = async (product, id, user) => {
 
 const deleteProduct = async (id, user) => {
 
-  if (user.role === 'admin'){
+  if (user.role !== 'admin'){
     return false;
   }
 
