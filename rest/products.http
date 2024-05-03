@@ -47,4 +47,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZmlyc3Rfb
 
 ### PUT product by id 5
 PUT http://127.0.0.1:3000//api/v1/products/:id
+Content-Type: application/json
 

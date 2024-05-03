@@ -27,4 +27,12 @@ const getMe = async (req, res) => {
   }
 }
 
-export { postLogin, getMe };
+function authenticateAdmin(req, res, next) {
+  if (res.locals.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ message: 'Forbidden: Not an admin' });
+  }
+}
+
+export { postLogin, getMe, authenticateAdmin};
