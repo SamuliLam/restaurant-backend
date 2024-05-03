@@ -52,11 +52,13 @@ const createProduct = async (product, user) => {
 }
 
 const updateProduct = async (product, id, user) => {
-  let sql = promisePool.format("UPDATE products SET ? WHERE product_id = ? AND user_id = ?", [product, id, user.id]);
 
   if (user.role === 'admin'){
-    sql = promisePool.format("UPDATE products SET ? WHERE product_id = ?", [product, id]);
+    return false;
   }
+
+  const sql = promisePool.format("UPDATE products SET ? WHERE product_id = ?", [product, id]);
+
 
   const [rows] = await promisePool.query(sql);
   console.log(rows);
@@ -68,11 +70,12 @@ const updateProduct = async (product, id, user) => {
 }
 
 const deleteProduct = async (id, user) => {
-  let sql = promisePool.format("DELETE FROM products WHERE product_id = ? AND user_id = ?", [id, user.id]);
 
   if (user.role === 'admin'){
-    sql = promisePool.format("DELETE FROM products WHERE product_id = ?", [id]);
+    return false;
   }
+
+  const sql = promisePool.format("DELETE FROM products WHERE product_id = ?", [id]);
 
   const [rows] = await promisePool.query(sql);
   console.log(rows);
