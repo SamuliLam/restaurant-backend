@@ -52,13 +52,11 @@ const createProduct = async (product, user) => {
 }
 
 const updateProduct = async (product, id, user) => {
-
   if (user.role !== 'admin'){
     return false;
   }
 
-  const sql = promisePool.format("UPDATE products SET ? WHERE product_id = ?", [product, id]);
-
+  const sql = promisePool.format("UPDATE products SET ? WHERE id = ?", [product, id]);
 
   const [rows] = await promisePool.query(sql);
   console.log(rows);
