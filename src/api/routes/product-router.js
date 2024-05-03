@@ -18,7 +18,7 @@ productRouter.route('/')
 // TODO: Add middlewares
 productRouter.route('/:id')
   .get(getProductById)
-  .put(authenticateToken, putProduct)
+  .post(authenticateToken, putProduct)
   .delete(authenticateToken, deleteProduct);
 
 export default productRouter;
