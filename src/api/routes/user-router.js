@@ -12,7 +12,7 @@ const userRouter = express.Router();
 
 userRouter.route("/").get(getUsers).post(postUser);
 
-userRouter.route("/:id").get(getUserById).put(putUser).delete(deleteUser);
+userRouter.route("/:id").get(getUserById).post(putUser).delete(deleteUser);
 
 userRouter.route("/:email").get(getUserByEmail);
 
