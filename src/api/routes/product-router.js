@@ -19,7 +19,7 @@ productRouter.route('/')
 productRouter.route('/:id')
   .get(getProductById)
   .post(authenticateToken, putProduct)
+  .delete(authenticateToken, deleteProduct);
 
-productRouter.route('/delete/:id').post(authenticateToken, deleteProduct);
 
 export default productRouter;
