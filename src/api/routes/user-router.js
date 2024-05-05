@@ -13,7 +13,7 @@ const userRouter = express.Router();
 
 userRouter.route("/").get(getUsers).post(postUser);
 
-userRouter.route("/:id").get(getUserById).post(authenticateToken, putUser).delete(deleteUser);
+userRouter.route("/:id").get(getUserById).post(authenticateToken, putUser).delete(authenticateToken, deleteUser);
 
 userRouter.route("/:email").get(getUserByEmail);
 
