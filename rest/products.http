@@ -54,3 +54,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3Rfb
   "name": "Margheritaa"
 }
 
+### DELETE product by id 22
+DELETE http://127.0.0.1:3000//api/v1/products/22
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6IlNhbXVsaSIsImxhc3RfbmFtZSI6IkxhbW1pbm3DpGtpIiwiZW1haWwiOiJzYW11bGkubGFtbWlubWFraUBtZXRyb3BvbGlhLmZpIiwicGhvbmUiOiIwNDUgNzY1IDQzMjEiLCJhZGRyZXNzIjoiSm9rdWthdHUgMSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxNDkwNzI2MSwiZXhwIjoxNzE0OTEwODYxfQ.2TZuX6NzIXlU9ebr--l3OS6fIB1U6VOKs2iPtMLXWXE
+

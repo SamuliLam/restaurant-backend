@@ -73,7 +73,7 @@ const deleteProduct = async (id, user) => {
     return false;
   }
 
-  const sql = promisePool.format("DELETE FROM products WHERE product_id = ?", [id]);
+  const sql = promisePool.format("DELETE FROM products WHERE id = ?", [id]);
 
   const [rows] = await promisePool.query(sql);
   console.log(rows);
