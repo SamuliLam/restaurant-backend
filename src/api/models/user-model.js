@@ -50,6 +50,7 @@ const updateUser = async (id, user) => {
 }
 
 const removeUser = async (id) => {
+
   const conn = await promisePool.getConnection();
   try {
     await conn.beginTransaction();

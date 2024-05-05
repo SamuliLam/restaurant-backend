@@ -58,7 +58,7 @@ const putUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   if (
-    res.locals.user.user_id !== Number(req.params.id) &&
+    res.locals.user.id !== Number(req.params.id) &&
     res.locals.user.role !== 'admin'
   ) {
     res.sendStatus(403);
