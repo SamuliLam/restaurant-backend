@@ -3,6 +3,7 @@ import {
   getOrders,
   getOrderById,
   getOrdersByCustomerId,
+  getOrderedItemsByOrderId,
   postOrder,
   putOrder,
   deleteOrder
@@ -13,6 +14,8 @@ const orderRouter = express.Router();
 orderRouter.route("/").get(getOrders).post(postOrder);
 
 orderRouter.route("/:id").get(getOrderById).put(putOrder).delete(deleteOrder);
+
+orderRouter.route("/:id/items").get(getOrderedItemsByOrderId);
 
 orderRouter.route("/customer/:customerId").get(getOrdersByCustomerId);
 

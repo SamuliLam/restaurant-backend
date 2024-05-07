@@ -1,7 +1,7 @@
 import promisePool from "../../utils/database.js";
 
 const listAllOrders = async () => {
-  const [rows] = await promisePool.query("SELECT * FROM orders");
+  const [rows] = await promisePool.query("SELECT orders.*, users.first_name, users.last_name, users.phone, users.email FROM orders JOIN users ON orders.customer_id = users.id");
   return rows;
 }
 
@@ -61,13 +61,26 @@ const addOrder = async (order, products) => {
 }
 
 const updateOrder = async (id, order) => {
-  const sql = promisePool.format("UPDATE orders SET ? WHERE order_id = ?", [order, id]);
+  const queryParams = [];
+
+  let setClause = '';
+
+  for (const [key, value] of Object.entries(order)) {
+    setClause += `${key} = ?, `;
+    queryParams.push(value);
+  }
+
+  setClause = setClause.slice(0, -2);
+
+  queryParams.push(id);
+
+  const sql = `UPDATE orders SET ${setClause} WHERE order_id = ?`;
+
   try {
-    const rows = await promisePool.execute(sql);
-    if (rows[0].affectedRows === 0) {
-      return false;
-    }
-    return true;
+    console.log('SQL:', sql);
+    console.log('Query Params:', queryParams);
+    const rows = await promisePool.execute(sql, queryParams);
+    return !(rows[0].affectedRows === 0);
   } catch (e) {
     console.error("error", e.message);
     return false;
@@ -98,11 +111,17 @@ const removeOrder = async (id) => {
   }
 };
 
+const findOrderedItemsByOrderId = async (id) => {
+  const [rows] = await promisePool.query("SELECT order_items.*, products.name FROM order_items JOIN products ON order_items.product_id = products.id WHERE order_id = ?", [id]);
+  return rows;
+};
+
 export {
   listAllOrders,
   findOrderById,
   findOrdersByCustomerId,
   addOrder,
   updateOrder,
-  removeOrder
+  removeOrder,
+  findOrderedItemsByOrderId
 }

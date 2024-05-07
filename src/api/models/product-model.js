@@ -1,9 +1,32 @@
 import promisePool from "../../utils/database.js";
 
 const getAllProducts = async () => {
-  const [rows] = await promisePool.query("SELECT * FROM products");
-  console.log(rows);
-  return rows;
+  const [rows] = await promisePool.query(`
+    SELECT products.*,
+           GROUP_CONCAT(allergens.name) as allergen_names,
+           GROUP_CONCAT(allergens.id) as allergen_ids
+    FROM products
+    LEFT JOIN product_allergens ON products.id = product_allergens.product_id
+    LEFT JOIN allergens ON product_allergens.allergen_id = allergens.id
+    GROUP BY products.id
+  `);
+
+  const products = rows.map(product => {
+    const allergens = product.allergen_names ? product.allergen_names.split(',').map((name, index) => ({
+      id: product.allergen_ids.split(',')[index],
+      name
+    })) : [];
+
+    const { allergen_names, allergen_ids, ...productWithoutAllergenFields } = product;
+
+    return {
+      ...productWithoutAllergenFields,
+      allergens
+    };
+  });
+
+  console.log(products);
+  return products;
 }
 
 const getProductById = async (id) => {
@@ -29,11 +52,11 @@ const createProduct = async (product, user) => {
 }
 
 const updateProduct = async (product, id, user) => {
-  let sql = promisePool.format("UPDATE products SET ? WHERE product_id = ? AND user_id = ?", [product, id, user.id]);
-
-  if (user.role === 'admin'){
-    sql = promisePool.format("UPDATE products SET ? WHERE product_id = ?", [product, id]);
+  if (user.role !== 'admin'){
+    return false;
   }
+
+  const sql = promisePool.format("UPDATE products SET ? WHERE id = ?", [product, id]);
 
   const [rows] = await promisePool.query(sql);
   console.log(rows);
@@ -45,11 +68,12 @@ const updateProduct = async (product, id, user) => {
 }
 
 const deleteProduct = async (id, user) => {
-  let sql = promisePool.format("DELETE FROM products WHERE product_id = ? AND user_id = ?", [id, user.id]);
 
-  if (user.role === 'admin'){
-    sql = promisePool.format("DELETE FROM products WHERE product_id = ?", [id]);
+  if (user.role !== 'admin'){
+    return false;
   }
+
+  const sql = promisePool.format("DELETE FROM products WHERE id = ?", [id]);
 
   const [rows] = await promisePool.query(sql);
   console.log(rows);

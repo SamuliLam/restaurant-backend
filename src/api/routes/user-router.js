@@ -7,12 +7,13 @@ import {
   deleteUser
 } from "../controllers/user-controller.js";
 import {getUserByEmail} from "../models/user-model.js";
+import {authenticateToken} from "../../middlewares.js";
 
 const userRouter = express.Router();
 
 userRouter.route("/").get(getUsers).post(postUser);
 
-userRouter.route("/:id").get(getUserById).put(putUser).delete(deleteUser);
+userRouter.route("/:id").get(getUserById).post(authenticateToken, putUser).delete(authenticateToken, deleteUser);
 
 userRouter.route("/:email").get(getUserByEmail);
 

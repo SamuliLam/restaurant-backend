@@ -35,13 +35,14 @@ const addUser = async (user) => {
 }
 
 const updateUser = async (id, user) => {
+
   const sql = promisePool.format("UPDATE users SET ? WHERE id = ?", [user, id]);
   try {
-     const rows = await promisePool.execute(sql);
-      if (rows[0].affectedRows === 0) {
-        return false;
-      }
-      return true;
+    const rows = await promisePool.execute(sql);
+    if (rows[0].affectedRows === 0) {
+      return false;
+    }
+    return {message: "User updated", user};
   } catch (e) {
     console.error("error", e.message);
     return false;
@@ -49,6 +50,7 @@ const updateUser = async (id, user) => {
 }
 
 const removeUser = async (id) => {
+
   const conn = await promisePool.getConnection();
   try {
     await conn.beginTransaction();
@@ -64,11 +66,11 @@ const removeUser = async (id) => {
       message: "User deleted",
       id: id
     };
-    } catch (e) {
-      await conn.rollback();
-      console.error("error", e.message);
-      return false;
-    } finally {
+  } catch (e) {
+    await conn.rollback();
+    console.error("error", e.message);
+    return false;
+  } finally {
     conn.release();
   }
 };

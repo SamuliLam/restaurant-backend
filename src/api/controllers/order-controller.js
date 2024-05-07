@@ -2,6 +2,7 @@ import {
   listAllOrders,
   findOrderById,
   findOrdersByCustomerId,
+  findOrderedItemsByOrderId,
   addOrder,
   updateOrder,
   removeOrder,
@@ -41,12 +42,14 @@ const postOrder = async (req, res) => {
 }
 
 const putOrder = async (req, res) => {
-  const result = await updateOrder(req.body, req.params.id);
-  if (!result) {
-    res.sendStatus(400);
-    return;
+  const id = req.params.id;
+  const order = req.body;
+  const result = await updateOrder(id, order);
+  if (result) {
+    res.json({message: 'Order updated', order});
+  } else {
+    res.status(400).json({message: 'Update failed'});
   }
-  res.json(result);
 };
 
 const deleteOrder = async (req, res) => {
@@ -58,4 +61,15 @@ const deleteOrder = async (req, res) => {
   res.json(result);
 };
 
-export { getOrders, getOrderById, getOrdersByCustomerId, postOrder, putOrder, deleteOrder };
+const getOrderedItemsByOrderId = async (req, res) => {
+  const orderedItems = await findOrderedItemsByOrderId(req.params.id);
+  if (!orderedItems) {
+    return res.status(404).json({ message: "No ordered items found" });
+  }
+  return res.status(200).json(orderedItems);
+
+}
+
+
+
+export { getOrders, getOrderById, getOrdersByCustomerId, getOrderedItemsByOrderId, postOrder, putOrder, deleteOrder };
