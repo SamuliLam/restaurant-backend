@@ -3,6 +3,9 @@
 
 /.idea
 
+# apiDoc assets
+/apidoc/assets
+
 ### Node ###
 # Logs
 logs

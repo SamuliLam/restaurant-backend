@@ -20,13 +20,16 @@ content-type: application/json
 
 {
   "order": {
-    "customer_id": 2,
-    "delivery_address": "Samulin katu 1",
+    "customer_id": 1,
+    "delivery_address": "1234 Main Street",
     "status": "processing",
     "total_price": 9.99
   },
   "products": [
-    {"product_id": 1}
+    {"product_id": 1},
+    {"product_id": 3},
+    {"product_id": 3},
+    {"product_id": 7}
   ]
 }
 
