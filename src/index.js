@@ -6,7 +6,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 // ************** sertifkaattien ja https serverin lisäys
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'IT') {
   const sslkey = fs.readFileSync('/etc/pki/tls/private/ca.key');
   const sslcert = fs.readFileSync('/etc/pki/tls/certs/ca.crt');
 
