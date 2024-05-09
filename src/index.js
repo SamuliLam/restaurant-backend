@@ -20,5 +20,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at https://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
