@@ -77,8 +77,6 @@ const updateOrder = async (id, order) => {
   const sql = `UPDATE orders SET ${setClause} WHERE order_id = ?`;
 
   try {
-    console.log('SQL:', sql);
-    console.log('Query Params:', queryParams);
     const rows = await promisePool.execute(sql, queryParams);
     return !(rows[0].affectedRows === 0);
   } catch (e) {

@@ -27,5 +27,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.5",
     "npm": "^10.5.2"
+  },
+  "apidoc": {
+    "name": "Pizzeria En Rico Backend"
   }
 }
